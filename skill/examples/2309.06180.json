@@ -1,0 +1,24 @@
+{
+  "paper_id": "2309.06180",
+  "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+  "authors": ["Woosuk Kwon", "Zhuohan Li", "Siyuan Zhuang", "Ying Sheng", "Lianmin Zheng", "Cody Hao Yu", "Joseph E. Gonzalez", "Hao Zhang", "Ion Stoica"],
+  "date": "2023-09-12",
+  "problem": "LLM serving needs large batches for high throughput, but each request's KV cache is large and grows and shrinks unpredictably, so existing systems waste memory to fragmentation and duplication and cannot batch enough requests.",
+  "contribution": "PagedAttention stores each request's KV cache in fixed-size blocks that need not be contiguous, like pages in virtual memory. The vLLM serving system built on it wastes almost no KV cache memory and shares blocks within and across requests. It raises throughput 2-4x over FasterTransformer and Orca at the same latency.",
+  "method_summary": "vLLM splits each sequence's KV cache into fixed-size blocks and keeps a block table per request that maps logical blocks to physical GPU blocks, much like a page table. Blocks are allocated only as tokens are generated, so waste is limited to the last block of each sequence. The PagedAttention kernel reads keys and values through the block table. Blocks carry reference counts, so parallel samples and beam search candidates share prompt blocks and copy a block only when they write to it. When GPU memory runs out, the scheduler preempts whole requests and either swaps their blocks to CPU memory or recomputes them later. The system supports Megatron-LM style tensor parallelism with one shared block table across GPUs.",
+  "evidence": "Strong: On OPT and LLaMA models from 13B to 175B parameters with ShareGPT and Alpaca request traces, vLLM sustains 2-4x higher request rates than FasterTransformer and Orca at similar latency. Gains grow with longer sequences, larger models, and beam search or parallel sampling.",
+  "builds_on": [
+    "Yu et al. 2022, Orca: iteration-level scheduling for generative models",
+    "1909.08053",
+    "Virtual memory and paging, as in operating systems"
+  ],
+  "useful_for": [
+    "A researcher working on LLM serving schedulers could use this to raise batch sizes by allocating KV cache memory in fixed-size blocks on demand.",
+    "A researcher working on parallel sampling or beam search could use this to share prompt KV cache across candidate sequences with copy-on-write.",
+    "A researcher working on KV cache compression could use this to combine compression with block-level memory accounting and sharing.",
+    "A researcher working on attention kernels could use this to support non-contiguous KV cache layouts."
+  ],
+  "limitations": "Reading keys and values through the block table makes the attention kernel itself somewhat slower than a contiguous one. The authors note paging pays off when memory is allocated dynamically and is the bottleneck, and may not help workloads with static tensor shapes such as most DNN training.",
+  "topics": ["llm serving", "kv cache", "memory optimization", "batching", "attention kernels"],
+  "extractor": "hand-written example / paper-value-extraction v0.1"
+}

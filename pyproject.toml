@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rvn"
+version = "0.1.0"
+description = "Research Value Network node, prototype v0"
+requires-python = ">=3.10"
+dependencies = ["cryptography>=41"]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "jsonschema>=4"]
+
+[project.scripts]
+rvn = "rvn.cli:main"
+
+[tool.setuptools]
+packages = ["rvn"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

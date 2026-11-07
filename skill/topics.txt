@@ -1,0 +1,81 @@
+# Shared topic vocabulary, v0 starter list.
+# PLACEHOLDER: the spec leaves open whether this is a hand-written list of ~200
+# labels or derived from arXiv categories, and which subfield launches first.
+# This list assumes a machine learning systems launch. One label per line.
+# Free-text labels are still allowed in records.
+
+llm inference
+llm serving
+model serving
+kv cache
+speculative decoding
+batching
+request scheduling
+continuous batching
+attention kernels
+gpu kernels
+kernel fusion
+compilers for ml
+tensor programs
+autotuning
+graph optimization
+operator scheduling
+quantization
+low-precision training
+pruning
+sparsity
+knowledge distillation
+mixture of experts
+distributed training
+data parallelism
+tensor parallelism
+pipeline parallelism
+fully sharded data parallel
+collective communication
+network topology
+gradient compression
+memory optimization
+activation checkpointing
+offloading
+parameter-efficient fine-tuning
+fine-tuning systems
+reinforcement learning systems
+rlhf infrastructure
+training stability
+checkpointing
+fault tolerance
+elastic training
+cluster scheduling
+gpu sharing
+resource allocation
+energy efficiency
+carbon-aware computing
+hardware accelerators
+tpu
+fpga
+in-memory computing
+edge inference
+on-device learning
+federated learning
+privacy-preserving ml
+data loading
+data pipelines
+dataset curation
+vector databases
+retrieval-augmented generation
+embedding systems
+recommendation systems
+graph neural network systems
+benchmarking
+performance modeling
+profiling
+cost modeling
+ml for systems
+learned indexes
+query optimization
+agent systems
+llm evaluation
+long context
+state space models
+transformer architecture
+scaling laws

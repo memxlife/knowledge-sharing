@@ -1,0 +1,7 @@
+{
+  "relays": [
+    "https://relay1.example-university.edu:8470",
+    "https://relay2.example-university.edu:8470"
+  ],
+  "embedding_model": "hash-bow-v1"
+}
